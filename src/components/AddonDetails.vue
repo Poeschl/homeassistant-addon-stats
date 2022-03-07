@@ -1,19 +1,24 @@
 <template>
-  <div class="row">
-    <h2>{{ addonDetails.name }}</h2>
+  <div class="col">
+    <div class="row mb-2">
+      <h2>{{ addonDetails.name }}</h2>
+    </div>
+    <div class="row mb-3">
+      <NumberDisplayWidget :values="numberDisplay"/>
+    </div>
+    <div class="row">
+      <VersionsChart :versions="addonDetails.versions"/>
+    </div>
   </div>
-  <div class="row">
-    <NumberDisplayWidget :values="numberDisplay"/>
-  </div>
-  <p>{{ addonDetails.versions }}</p>
 </template>
 
 <script>
 import NumberDisplayWidget from "@/components/NumberDisplayWidget.vue";
+import VersionsChart from "@/components/VersionsChart.vue";
 
 export default {
   name: "AddonDetails",
-  components: {NumberDisplayWidget},
+  components: {VersionsChart, NumberDisplayWidget},
   props: ["addonDetails"],
   computed: {
     numberDisplay() {

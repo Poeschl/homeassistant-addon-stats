@@ -91,7 +91,6 @@ export default {
     },
     addonClicked(addonKey) {
       this.currentAddon = this.addonData[addonKey]
-      console.log("Loaded " + JSON.stringify(this.currentAddon))
     }
   },
   components: {
@@ -99,7 +98,7 @@ export default {
     AddonList,
     AddonDetails,
   },
-  mounted() {
+  beforeMount() {
     this.loadAddonData()
     this.addonClicked(Object.keys(this.addonData)[0])
   }
@@ -122,6 +121,6 @@ export default {
 
 <style>
 .list {
-  padding-top: 2.98rem;
+  padding-top: 3.44rem;
 }
 </style>
