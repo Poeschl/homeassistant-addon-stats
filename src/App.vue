@@ -1,119 +1,117 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from '@/components/HelloWorld.vue'
+<script>
+import AddonList from "@/components/AddonList.vue";
+import AddonDetails from "@/components/AddonDetails.vue";
+
+export default {
+  data() {
+    return {
+      addonData: {},
+      currentAddon: {},
+    }
+  },
+  methods: {
+    loadAddonData() {
+      const retrievedData = {
+        "a0d7b954_influxdb": {
+          "total": 9371,
+          "versions": {
+            "4.1.0": 27,
+            "4.3.0": 8533,
+            "4.2.1": 429,
+            "4.0.6": 51,
+            "4.1.1": 198,
+            "3.5.0": 1,
+            "3.7.2": 2,
+            "4.0.1": 17,
+            "4.0.4": 22,
+            "3.6.2": 2,
+            "3.7.9": 15,
+            "4.0.3": 52,
+            "3.7.6": 2,
+            "3.7.1": 3,
+            "3.6.0": 2,
+            "3.7.7": 4,
+            "3.6.1": 1,
+            "3.2.0": 1,
+            "3.5.1": 2,
+            "3.7.8": 1,
+            "3.3.0": 1,
+            "3.7.4": 2,
+            "3.7.5": 2,
+            "3.7.3": 1
+          },
+          "protected": 9366,
+          "auto_update": 3843
+        },
+        "a0d7b954_ssh": {
+          "total": 16689,
+          "versions": {
+            "8.2.2": 14,
+            "10.0.2": 13450,
+            "9.0.1": 752,
+            "8.2.1": 97,
+            "10.0.0": 584,
+            "8.2.3": 71,
+            "10.0.1": 662,
+            "9.1.1": 528,
+            "8.1.1": 44,
+            "9.1.0": 87,
+            "9.0.0": 173,
+            "7.7.0": 3,
+            "8.2.4": 89,
+            "7.8.0": 17,
+            "8.2.0": 39,
+            "8.0.3": 21,
+            "7.3.1": 2,
+            "7.0.1": 2,
+            "7.4.1": 5,
+            "7.3.0": 5,
+            "8.0.4": 6,
+            "7.6.0": 7,
+            "7.1.0": 1,
+            "6.3.2": 1,
+            "8.0.1": 10,
+            "8.1.0": 6,
+            "7.4.0": 3,
+            "8.0.0": 3,
+            "7.5.1": 1,
+            "7.5.2": 1,
+            "5.0.2": 1,
+            "8.0.2": 1
+          },
+          "protected": 12880,
+          "auto_update": 8383
+        }
+      }
+      for (const addonKey in retrievedData) {
+        retrievedData[addonKey]['name'] = addonKey;
+      }
+      this.addonData = retrievedData
+    },
+    addonClicked(addonKey) {
+      this.currentAddon = this.addonData[addonKey]
+      console.log("Loaded " + JSON.stringify(this.currentAddon))
+    }
+  },
+  components: {
+    AddonList,
+    AddonDetails
+  },
+  mounted() {
+    this.loadAddonData()
+    this.addonClicked(Object.keys(this.addonData)[0])
+  }
+}
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
+  <div>
+    <AddonList :addon-data="this.addonData" @addon-clicked="(addon) => addonClicked(addon)"/>
+    <br/>
+    <AddonDetails :addon-details="currentAddon"/>
+  </div>
 </template>
 
 <style>
-@import '@/assets/base.css';
 
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-
-  font-weight: normal;
-}
-
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
-
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
 </style>
