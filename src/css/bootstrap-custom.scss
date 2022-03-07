@@ -16,6 +16,9 @@ $list-group-active-color: $list-group-color;
 $list-group-active-bg: $list-group-bg;
 $list-group-active-border-color: $list-group-active-bg;
 
+$card-color: $body-color;
+$card-bg: #121213;
+
 // import to set changes
 @import "bootstrap/scss/bootstrap";
 @import "custom-styling";

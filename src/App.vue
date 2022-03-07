@@ -110,7 +110,7 @@ export default {
   <Header/>
   <div class="container">
     <div class="row">
-      <div class="col-4">
+      <div class="col-4 list">
         <AddonList :addon-data="this.addonData" :current-addon="this.currentAddon" @addon-clicked="(addon) => addonClicked(addon)"/>
       </div>
       <div class="col-8">
@@ -121,5 +121,7 @@ export default {
 </template>
 
 <style>
-
+.list {
+  padding-top: 2.98rem;
+}
 </style>
