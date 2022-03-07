@@ -111,10 +111,10 @@ export default {
   <div class="container">
     <div class="row">
       <div class="col-4">
-        <AddonList :addon-data="this.addonData" @addon-clicked="(addon) => addonClicked(addon)"/>
+        <AddonList :addon-data="this.addonData" :current-addon="this.currentAddon" @addon-clicked="(addon) => addonClicked(addon)"/>
       </div>
       <div class="col-8">
-        <AddonDetails :addon-details="currentAddon"/>
+        <AddonDetails :addon-details="this.currentAddon"/>
       </div>
     </div>
   </div>

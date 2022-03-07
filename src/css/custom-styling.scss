@@ -1,4 +1,11 @@
+//Fixed top bar
+body {
+  padding-top: 5rem;
+}
+
 .navbar {
+  box-shadow: 0 4px 8px transparentize($black, .7);
+
   .mdi {
     font-size: 1.5rem;
   }
@@ -7,5 +14,21 @@
 .mdi {
   &.single {
     font-size: 2rem;
+  }
+}
+
+.list-group > li {
+  cursor: pointer;
+  border-right-width: 6px;
+  border-right-color: transparent;
+
+  &:hover {
+    text-shadow: 0 0 8px $primary;
+    border-right-color: transparentize($primary, .5);
+  }
+
+  &.active {
+    color: $primary;
+    border-right-color: $primary;
   }
 }

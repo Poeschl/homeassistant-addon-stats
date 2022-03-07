@@ -6,5 +6,16 @@ $secondary: #2d2d2f !default;
 $body-bg: #1e1e20;
 $body-color: #f7f7f7;
 
+$border-radius: 4px;
+
+$list-group-color: $body-color;
+$list-group-bg: #121213;
+$list-group-border-color: $list-group-bg;
+$list-group-hover-bg: $list-group-bg;
+$list-group-active-color: $list-group-color;
+$list-group-active-bg: $list-group-bg;
+$list-group-active-border-color: $list-group-active-bg;
+
 // import to set changes
 @import "bootstrap/scss/bootstrap";
+@import "custom-styling";
