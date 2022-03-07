@@ -1,0 +1,23 @@
+name: Lint source code
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ↩️Checkout
+        uses: actions/checkout@v2
+      - name: 🏗️ Install Node.js 16.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: 'npm'
+      - name: 🏗️ Install packages
+        run: npm ci
+      - name: 🔎 Lint with eslint
+        run: npm run lint
