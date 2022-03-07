@@ -1,0 +1,34 @@
+name: Deploy to GH-Pages
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ↩️Checkout
+        uses: actions/checkout@v2
+
+      - name: 🏗️ Install Node.js 16.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: 'npm'
+      - name: 🏗️ Install packages
+        run: npm ci
+      - name: ⚙️Build application
+        run: npm run build
+
+      - name: 🚀 Deploy
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        if: github.ref == 'refs/heads/main'
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: dist # The folder the action should deploy.
+          BASE_BRANCH: main
+
+      - name: 🗄️ List files
+        run: |
+          ls -al
