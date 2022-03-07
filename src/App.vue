@@ -1,7 +1,7 @@
 <script>
 import AddonList from "@/components/AddonList.vue";
 import AddonDetails from "@/components/AddonDetails.vue";
-import Header from "@/components/HeaderBar.vue";
+import HeaderBar from "@/components/HeaderBar.vue";
 
 export default {
   data() {
@@ -34,7 +34,7 @@ export default {
     }
   },
   components: {
-    Header,
+    HeaderBar,
     AddonList,
     AddonDetails,
   },
@@ -46,7 +46,7 @@ export default {
 </script>
 
 <template>
-  <Header/>
+  <HeaderBar/>
   <div class="container">
     <div class="row">
       <div class="col-4 list">
