@@ -1,7 +1,7 @@
 <script>
 import AddonList from "@/components/AddonList.vue";
 import AddonDetails from "@/components/AddonDetails.vue";
-import Header from "@/components/Header.vue";
+import Header from "@/components/HeaderBar.vue";
 
 export default {
   data() {
