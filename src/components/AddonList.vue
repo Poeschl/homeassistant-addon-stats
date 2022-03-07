@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="(addon, addonKey) in addonData" :key="addonKey" :data-id="addonKey" @click="$emit('addonClicked', addonKey)">
+    <div v-for="(addon, addonKey) in addonData" :key="addonKey" @click="$emit('addonClicked', addonKey)">
       <h2>{{ addonKey }}</h2>
     </div>
   </div>
@@ -12,7 +12,3 @@ export default {
   props: ["addonData"],
 }
 </script>
-
-<style scoped>
-
-</style>

@@ -12,7 +12,3 @@ export default {
   props: ["addonDetails"],
 }
 </script>
-
-<style scoped>
-
-</style>

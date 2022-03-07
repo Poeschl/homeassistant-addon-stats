@@ -1,0 +1,10 @@
+// variable overwrites
+
+$primary: #ab2424 !default;
+$secondary: #2d2d2f !default;
+
+$body-bg: #1e1e20;
+$body-color: #f7f7f7;
+
+// import to set changes
+@import "bootstrap/scss/bootstrap";

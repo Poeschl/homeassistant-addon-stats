@@ -1,6 +1,7 @@
 <script>
 import AddonList from "@/components/AddonList.vue";
 import AddonDetails from "@/components/AddonDetails.vue";
+import Header from "@/components/Header.vue";
 
 export default {
   data() {
@@ -94,8 +95,9 @@ export default {
     }
   },
   components: {
+    Header,
     AddonList,
-    AddonDetails
+    AddonDetails,
   },
   mounted() {
     this.loadAddonData()
@@ -105,10 +107,16 @@ export default {
 </script>
 
 <template>
-  <div>
-    <AddonList :addon-data="this.addonData" @addon-clicked="(addon) => addonClicked(addon)"/>
-    <br/>
-    <AddonDetails :addon-details="currentAddon"/>
+  <Header/>
+  <div class="container">
+    <div class="row">
+      <div class="col-4">
+        <AddonList :addon-data="this.addonData" @addon-clicked="(addon) => addonClicked(addon)"/>
+      </div>
+      <div class="col-8">
+        <AddonDetails :addon-details="currentAddon"/>
+      </div>
+    </div>
   </div>
 </template>
 
