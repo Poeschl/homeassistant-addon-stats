@@ -14,10 +14,16 @@ export default {
     loadAddonData() {
       let retrievedData
 
-      fetch("https://analytics.home-assistant.io/addons.json", {mode: "no-cors", method: "GET"})
+      fetch("addons.json", {
+        method: "GET",
+        headers: {
+          "Accept": "application/json"
+        }
+      })
           .then(response => {
-            console.log(JSON.stringify(response))
-            response.json()
+            const data = response.json();
+            console.log(JSON.stringify(data))
+            return data
           })
           .then(data => retrievedData = data)
           .catch(error => {
@@ -33,6 +39,11 @@ export default {
       this.currentAddon = this.addonData[addonKey]
     }
   },
+  computed: {
+    addonsLoaded() {
+      return this.addonData !== undefined && Object.keys(this.addonData) > 0;
+    }
+  },
   components: {
     HeaderBar,
     AddonList,
@@ -40,7 +51,9 @@ export default {
   },
   beforeMount() {
     this.loadAddonData()
-    this.addonClicked(Object.keys(this.addonData)[0])
+    if (this.addonData !== undefined) {
+      this.addonClicked(Object.keys(this.addonData)[0])
+    }
   }
 }
 </script>
@@ -48,13 +61,16 @@ export default {
 <template>
   <HeaderBar/>
   <div class="container">
-    <div class="row">
+    <div class="row" v-if="addonsLoaded">
       <div class="col-4 list">
         <AddonList :addon-data="this.addonData" :current-addon="this.currentAddon" @addon-clicked="(addon) => addonClicked(addon)"/>
       </div>
       <div class="col-8">
         <AddonDetails :addon-details="this.currentAddon"/>
       </div>
+    </div>
+    <div class="row text-center" v-if="!addonsLoaded">
+      <h3>No addon data available</h3>
     </div>
   </div>
 </template>
