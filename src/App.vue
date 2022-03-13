@@ -73,7 +73,7 @@ export default {
   <HeaderBar/>
   <div class="container">
     <div class="row" v-if="addonsLoaded">
-      <div class="col-4 list">
+      <div class="col-4">
         <AddonList :addon-data="this.reactiveAddons" :current-addon="this.currentAddon"
                    @addon-clicked="(addon) => addonClicked(addon)" @change-sorting="(newSorting) => this.sorting = newSorting"/>
       </div>

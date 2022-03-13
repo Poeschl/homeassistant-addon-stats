@@ -15,16 +15,18 @@
       </ul>
     </div>
   </div>
-  <ul class="list-group">
-    <li class="list-group-item"
-        v-for="addon in addonData"
-        :key="addon.name"
-        @click="$emit('addonClicked', addon.name)"
-        :class="{ active: addon.name === currentAddon.name }"
-    >
-      {{ addon.name }}
-    </li>
-  </ul>
+  <div class="list-scroll overflow-auto">
+    <ul class="list-group">
+      <li class="list-group-item"
+          v-for="addon in addonData"
+          :key="addon.name"
+          @click="$emit('addonClicked', addon.name)"
+          :class="{ active: addon.name === currentAddon.name }"
+      >
+        {{ addon.name }}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -34,3 +36,9 @@ export default {
   emits: ["changeSorting", "addonClicked"]
 }
 </script>
+
+<style>
+.list-scroll {
+  height: 80vh;
+}
+</style>
