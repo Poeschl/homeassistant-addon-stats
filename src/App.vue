@@ -6,8 +6,9 @@ import HeaderBar from "@/components/HeaderBar.vue";
 export default {
   data() {
     return {
-      addonData: {},
+      addons: {},
       currentAddon: {},
+      sorting: 'total'
     }
   },
   methods: {
@@ -24,21 +25,37 @@ export default {
     },
     onDataLoaded(dataPromise) {
       dataPromise.then(json => {
-        console.log(json)
         for (const addonKey in json) {
           json[addonKey]['name'] = addonKey;
         }
-        this.addonData = json
-        this.addonClicked(Object.keys(this.addonData)[0])
+        this.addons = json
+        this.addonClicked(Object.keys(this.addons)[0])
       })
     },
     addonClicked(addonKey) {
-      this.currentAddon = this.addonData[addonKey]
+      this.currentAddon = this.addons[addonKey]
     }
   },
   computed: {
     addonsLoaded() {
-      return this.addonData !== undefined && Object.keys(this.addonData).length > 0;
+      return this.addons !== undefined && Object.keys(this.addons).length > 0;
+    },
+    reactiveAddons() {
+      let compareFunction
+      if (this.sorting === 'total') {
+        compareFunction = (one, two) => two.total - one.total;
+      } else if (this.sorting === 'name') {
+        compareFunction = (one, two) => {
+          return (one.name < two.name ? -1 : (one.name > two.name ? 1 : 0));
+        }
+      }
+      let sortedAddonsArray = Object.values(this.addons).sort(compareFunction)
+
+      const sortedAddons = {}
+      for (const addon of sortedAddonsArray) {
+        sortedAddons[addon.name] = addon;
+      }
+      return sortedAddons;
     }
   },
   components: {
@@ -57,7 +74,8 @@ export default {
   <div class="container">
     <div class="row" v-if="addonsLoaded">
       <div class="col-4 list">
-        <AddonList :addon-data="this.addonData" :current-addon="this.currentAddon" @addon-clicked="(addon) => addonClicked(addon)"/>
+        <AddonList :addon-data="this.reactiveAddons" :current-addon="this.currentAddon"
+                   @addon-clicked="(addon) => addonClicked(addon)" @change-sorting="(newSorting) => this.sorting = newSorting"/>
       </div>
       <div class="col-8">
         <AddonDetails :addon-details="this.currentAddon"/>
@@ -70,9 +88,3 @@ export default {
     </div>
   </div>
 </template>
-
-<style>
-.list {
-  padding-top: 3.44rem;
-}
-</style>
