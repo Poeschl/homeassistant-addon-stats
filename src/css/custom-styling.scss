@@ -32,3 +32,20 @@ body {
     border-right-color: $primary;
   }
 }
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 0.75rem;
+}
+
+::-webkit-scrollbar-track {
+  background: $secondary;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparentize($primary, .5);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: $primary;
+}
