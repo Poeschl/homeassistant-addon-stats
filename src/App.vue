@@ -8,7 +8,8 @@ export default {
     return {
       addons: {},
       currentAddon: {},
-      sorting: 'total'
+      sorting: 'total',
+      filter: ''
     }
   },
   methods: {
@@ -49,7 +50,9 @@ export default {
           return (one.name < two.name ? -1 : (one.name > two.name ? 1 : 0));
         }
       }
-      let sortedAddonsArray = Object.values(this.addons).sort(compareFunction)
+      let sortedAddonsArray = Object.values(this.addons)
+          .filter(addon => addon.name.includes(this.filter))
+          .sort(compareFunction)
 
       const sortedAddons = {}
       for (const addon of sortedAddonsArray) {
@@ -74,8 +77,11 @@ export default {
   <div class="container">
     <div class="row" v-if="addonsLoaded">
       <div class="col-4">
-        <AddonList :addon-data="this.reactiveAddons" :current-addon="this.currentAddon"
-                   @addon-clicked="(addon) => addonClicked(addon)" @change-sorting="(newSorting) => this.sorting = newSorting"/>
+        <AddonList :addon-data="this.reactiveAddons"
+                   :current-addon="this.currentAddon"
+                   @addon-clicked="(addon) => addonClicked(addon)"
+                   @change-sorting="(newSorting) => this.sorting = newSorting"
+                   @filter-changed="(newFilter) => this.filter = newFilter"/>
       </div>
       <div class="col-8">
         <AddonDetails :addon-details="this.currentAddon"/>

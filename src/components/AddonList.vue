@@ -1,6 +1,9 @@
 <template>
   <div class="mb-3 d-flex justify-content-between">
-    <div class=""></div>
+    <div>
+      <input type="search" class="form-control" id="addon-filter" placeholder="Filter"
+             @input="$emit('filterChanged', $event.target.value)">
+    </div>
     <div class="dropdown">
       <button class="btn btn-secondary dropdown-toggle" type="button" id="sortingButton" data-bs-toggle="dropdown" aria-expanded="false">
         Addon Sorting
@@ -33,7 +36,7 @@
 export default {
   name: "AddonList",
   props: ["addonData", "currentAddon"],
-  emits: ["changeSorting", "addonClicked"]
+  emits: ["changeSorting", "addonClicked", "filterChanged"]
 }
 </script>
 
