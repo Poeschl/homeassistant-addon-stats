@@ -1,0 +1,23 @@
+name: Update addon statistics
+on:
+  schedule:
+    - cron: 0 0 * * *
+
+jobs:
+  update-addon-statistics:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⏬ Download new addons.json
+        uses: wei/wget@v1
+        with:
+          args: -O addons.json https://analytics.home-assistant.io/addons.json
+      - name: 📁 Prepare folder structure
+        run: mkdir public && mv addons.json public/addons.json
+
+      - name: 🚀 Deploy
+        uses: JamesIves/github-pages-deploy-action@releases/v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages # The branch the action should deploy to.
+          folder: '.'
+          clean: false
