@@ -12,28 +12,25 @@ export default {
   },
   methods: {
     loadAddonData() {
-      let retrievedData
-
-      fetch("addons.json", {
-        method: "GET",
-        headers: {
-          "Accept": "application/json"
-        }
+      fetch("/addons.json", {
+        method: "get"
       })
           .then(response => {
-            const data = response.json();
-            console.log(JSON.stringify(data))
-            return data
+            this.onDataLoaded(response.json())
           })
-          .then(data => retrievedData = data)
           .catch(error => {
             console.error("Error on retrieving data", error)
           })
-
-      for (const addonKey in retrievedData) {
-        retrievedData[addonKey]['name'] = addonKey;
-      }
-      this.addonData = retrievedData
+    },
+    onDataLoaded(dataPromise) {
+      dataPromise.then(json => {
+        console.log(json)
+        for (const addonKey in json) {
+          json[addonKey]['name'] = addonKey;
+        }
+        this.addonData = json
+        this.addonClicked(Object.keys(this.addonData)[0])
+      })
     },
     addonClicked(addonKey) {
       this.currentAddon = this.addonData[addonKey]
@@ -41,7 +38,7 @@ export default {
   },
   computed: {
     addonsLoaded() {
-      return this.addonData !== undefined && Object.keys(this.addonData) > 0;
+      return this.addonData !== undefined && Object.keys(this.addonData).length > 0;
     }
   },
   components: {
@@ -51,9 +48,6 @@ export default {
   },
   beforeMount() {
     this.loadAddonData()
-    if (this.addonData !== undefined) {
-      this.addonClicked(Object.keys(this.addonData)[0])
-    }
   }
 }
 </script>
@@ -69,8 +63,10 @@ export default {
         <AddonDetails :addon-details="this.currentAddon"/>
       </div>
     </div>
-    <div class="row text-center" v-if="!addonsLoaded">
-      <h3>No addon data available</h3>
+    <div class="text-center" v-if="!addonsLoaded">
+      <div class="spinner-border text-primary d-inline-block" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
     </div>
   </div>
 </template>
