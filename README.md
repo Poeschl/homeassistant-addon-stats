@@ -3,7 +3,7 @@
 An alternative frontend for the [official addon statistics from Home Assistant](https://analytics.home-assistant.io/#add-ons) which shows
 all available addons.
 
-//TBD: Screenshot
+![Preview](assets/preview.png)
 
 The official side is filtered to the self-managed addons. This little Vue page will use the same data and shows an overview without this
 filter.
