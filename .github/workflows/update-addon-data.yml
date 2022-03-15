@@ -1,7 +1,8 @@
 name: Update addon statistics
 on:
+  workflow_dispatch:
   schedule:
-    - cron: 0 1 * * *
+    - cron: "0 1 * * *"
 
 jobs:
   update-addon-statistics:
@@ -23,7 +24,7 @@ jobs:
       - name: ⏬ Download new addons.json
         uses: wei/wget@v1
         with:
-          args: -O /dist/addons.json https://analytics.home-assistant.io/addons.json
+          args: -O dist/addons.json https://analytics.home-assistant.io/addons.json
 
       - name: 🚀 Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v3
