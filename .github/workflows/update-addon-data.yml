@@ -2,7 +2,7 @@ name: Update addon statistics
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 1 * * *"
+    - cron: "0 1 * * MON"
 
 jobs:
   update-addon-statistics:
