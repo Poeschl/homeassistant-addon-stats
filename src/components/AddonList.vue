@@ -2,6 +2,7 @@
   <div class="mb-3 d-flex justify-content-between">
     <div>
       <input type="search" class="form-control" id="addon-filter" placeholder="Filter"
+             :value="this.currentFilter"
              @input="$emit('filterChanged', $event.target.value)">
     </div>
     <div class="dropdown">
@@ -35,7 +36,7 @@
 <script>
 export default {
   name: "AddonList",
-  props: ["addonData", "currentAddon"],
+  props: ["addonData", "currentAddon", "currentFilter"],
   emits: ["changeSorting", "addonClicked", "filterChanged"]
 }
 </script>

@@ -17,12 +17,12 @@ export default {
       fetch("/addons.json", {
         method: "get"
       })
-          .then(response => {
-            this.onDataLoaded(response.json())
-          })
-          .catch(error => {
-            console.error("Error on retrieving data", error)
-          })
+        .then(response => {
+          this.onDataLoaded(response.json())
+        })
+        .catch(error => {
+          console.error("Error on retrieving data", error)
+        })
     },
     onDataLoaded(dataPromise) {
       dataPromise.then(json => {
@@ -30,11 +30,19 @@ export default {
           json[addonKey]['name'] = addonKey;
         }
         this.addons = json
-        this.addonClicked(Object.keys(this.addons)[0])
+        this.checkForFilterParam()
+        this.addonClicked(Object.keys(this.reactiveAddons)[0])
       })
     },
     addonClicked(addonKey) {
       this.currentAddon = this.addons[addonKey]
+    },
+    checkForFilterParam() {
+      let queryString = window.location.search;
+      let urlParams = new URLSearchParams(queryString);
+      if (urlParams.has("filter")) {
+        this.filter = urlParams.get("filter")
+      }
     }
   },
   computed: {
@@ -51,8 +59,8 @@ export default {
         }
       }
       let sortedAddonsArray = Object.values(this.addons)
-          .filter(addon => addon.name.includes(this.filter))
-          .sort(compareFunction)
+        .filter(addon => addon.name.includes(this.filter))
+        .sort(compareFunction)
 
       const sortedAddons = {}
       for (const addon of sortedAddonsArray) {
@@ -66,7 +74,7 @@ export default {
     AddonList,
     AddonDetails,
   },
-  beforeMount() {
+  mounted() {
     this.loadAddonData()
   }
 }
@@ -79,6 +87,7 @@ export default {
       <div class="col-4">
         <AddonList :addon-data="this.reactiveAddons"
                    :current-addon="this.currentAddon"
+                   :current-filter="this.filter"
                    @addon-clicked="(addon) => addonClicked(addon)"
                    @change-sorting="(newSorting) => this.sorting = newSorting"
                    @filter-changed="(newFilter) => this.filter = newFilter"/>
