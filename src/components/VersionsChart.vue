@@ -10,8 +10,8 @@
 <script>
 import {DoughnutChart} from 'vue-chart-3';
 import {Chart, registerables} from "chart.js";
-import compareVersions from 'compare-versions';
 import {interpolateTurbo} from "d3-scale-chromatic";
+import {compareVersions} from "compare-versions";
 
 Chart.register(...registerables);
 
