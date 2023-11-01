@@ -13,7 +13,7 @@
     "compare-versions": "^6.1.0",
     "d3-scale-chromatic": "^3.0.0",
     "sass": "^1.69.3",
-    "vue": "^3.3.4",
+    "vue": "^3.3.7",
     "vue-chart-3": "^3.1.8"
   },
   "devDependencies": {
