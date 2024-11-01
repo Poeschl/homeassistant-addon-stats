@@ -12,8 +12,8 @@
     "bootstrap": "^5.3.3",
     "compare-versions": "^6.1.1",
     "d3-scale-chromatic": "^3.1.0",
-    "sass": "^1.79.4",
-    "vue": "^3.5.10",
+    "sass": "^1.80.6",
+    "vue": "^3.5.12",
     "vue-chart-3": "^3.1.8"
   },
   "devDependencies": {
