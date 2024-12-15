@@ -3,6 +3,11 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "0 1 * * MON"
+  workflow_run:
+    types:
+      - completed
+    workflows:
+      - "Deploy to GH-Pages"
 
 jobs:
   update-addon-statistics:
@@ -11,10 +16,10 @@ jobs:
       - name: ↩️Checkout
         uses: actions/checkout@v4
 
-      - name: 🏗️ Install Node.js 16.x
+      - name: 🏗️ Install Node.js 20.x
         uses: actions/setup-node@v4
         with:
-          node-version: 16.x
+          node-version: 20.x
           cache: 'npm'
       - name: 🏗️ Install packages
         run: npm ci
