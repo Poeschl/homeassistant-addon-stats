@@ -29,3 +29,4 @@ coverage
 
 # Updated addons json
 public/addons.json
+public/version_history.json

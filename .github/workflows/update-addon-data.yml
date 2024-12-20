@@ -16,6 +16,11 @@ jobs:
       - name: ↩️ Checkout
         uses: actions/checkout@v4
 
+      - name: 🏗 Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.12"
+
       - name: ⚙ Create dist folder
         run: mkdir dist
 
@@ -23,6 +28,9 @@ jobs:
         uses: wei/wget@v1
         with:
           args: -O dist/addons.json https://analytics.home-assistant.io/addons.json
+
+      - name: ⚙ Update version history
+        run: python scripts/update_addon_version_history.py dist/addons.json dist/version_history.json
 
       - name: 🚀 Deploy
         uses: JamesIves/github-pages-deploy-action@releases/v4
