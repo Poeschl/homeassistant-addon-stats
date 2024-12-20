@@ -13,18 +13,11 @@ jobs:
   update-addon-statistics:
     runs-on: ubuntu-latest
     steps:
-      - name: ↩️Checkout
+      - name: ↩️ Checkout
         uses: actions/checkout@v4
 
-      - name: 🏗️ Install Node.js 20.x
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20.x
-          cache: 'npm'
-      - name: 🏗️ Install packages
-        run: npm ci
-      - name: ⚙️Build application
-        run: npm run build
+      - name: ⚙ Create dist folder
+        run: mkdir dist
 
       - name: ⏬ Download new addons.json
         uses: wei/wget@v1
@@ -32,10 +25,10 @@ jobs:
           args: -O dist/addons.json https://analytics.home-assistant.io/addons.json
 
       - name: 🚀 Deploy
-        uses: JamesIves/github-pages-deploy-action@releases/v3
+        uses: JamesIves/github-pages-deploy-action@releases/v4
         if: github.ref == 'refs/heads/main'
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: dist # The folder the action should deploy.
-          BASE_BRANCH: main
+          token: ${{ secrets.GITHUB_TOKEN }}
+          folder: dist
+          single-commit: true
+          clean: false # Don't remove other files
