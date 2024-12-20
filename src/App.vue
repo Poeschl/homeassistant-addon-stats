@@ -7,6 +7,7 @@ export default {
   data() {
     return {
       addons: {},
+      addon_version_history: {},
       currentAddon: {},
       sorting: 'total',
       filter: ''
@@ -14,25 +15,41 @@ export default {
   },
   methods: {
     loadAddonData() {
-      fetch("/addons.json", {
-        method: "get"
-      })
-        .then(response => {
-          this.onDataLoaded(response.json())
+      Promise.all([
+          fetch("/addons.json", {
+            method: "get"
+          }),
+          fetch("/version_history.json", {
+            method: "get"
+          })
+        ]
+      )
+        .then(combinedResponses => {
+          this.onDataLoaded(combinedResponses)
         })
         .catch(error => {
           console.error("Error on retrieving data", error)
         })
     },
-    onDataLoaded(dataPromise) {
-      dataPromise.then(json => {
-        for (const addonKey in json) {
-          json[addonKey]['name'] = addonKey;
-        }
-        this.addons = json
-        this.checkForFilterParam()
-        this.addonClicked(Object.keys(this.reactiveAddons)[0])
-      })
+    onDataLoaded(combinedResponses) {
+      const addonsJsonPromise = combinedResponses[0].json()
+      const historyJsonPromise = combinedResponses[1].json()
+      Promise.all([
+          addonsJsonPromise.then(json => {
+            for (const addonKey in json) {
+              json[addonKey]['name'] = addonKey;
+            }
+            this.addons = json
+          }),
+          historyJsonPromise.then(historyJson => {
+            this.addon_version_history = historyJson
+          })
+        ]
+      )
+        .then(() => {
+          this.checkForFilterParam()
+          this.addonClicked(Object.keys(this.reactiveAddons)[0])
+        })
     },
     addonClicked(addonKey) {
       this.currentAddon = this.addons[addonKey]
@@ -93,7 +110,7 @@ export default {
                    @filter-changed="(newFilter) => this.filter = newFilter"/>
       </div>
       <div class="col-8">
-        <AddonDetails :addon-details="this.currentAddon"/>
+        <AddonDetails :addon-details="this.currentAddon" :addon-history="this.addon_version_history[this.currentAddon.name]" />
       </div>
     </div>
     <div class="text-center" v-if="!addonsLoaded">

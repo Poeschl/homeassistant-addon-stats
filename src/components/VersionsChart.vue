@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title">Installations grouped by version</h5>
+      <h5 class="card-title">Latest installations grouped by version</h5>
       <DoughnutChart :chart-data="this.getChartData()" :options="chartOptions"/>
     </div>
   </div>
@@ -36,6 +36,10 @@ export default {
   },
   methods: {
     getChartData() {
+      if (this.versions === undefined || this.versions.length === 0) {
+        return {}
+      }
+
       const sortedVersions = Object.keys(this.versions).map((key) => {
         return [key, this.versions[key]]
       }).sort((first, second) => {
