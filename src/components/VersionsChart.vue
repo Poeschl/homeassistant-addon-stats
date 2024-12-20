@@ -37,7 +37,10 @@ export default {
   methods: {
     getChartData() {
       if (this.versions === undefined || this.versions.length === 0) {
-        return {}
+        return {
+          labels: [],
+          datasets: []
+        }
       }
 
       const sortedVersions = Object.keys(this.versions).map((key) => {
