@@ -15,8 +15,10 @@ jobs:
         with:
           node-version: 20.x
           cache: 'npm'
+
       - name: 🏗️ Install packages
         run: npm ci
+
       - name: ⚙️Build application
         run: npm run build
 
@@ -26,11 +28,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           folder: dist
-          single-commit: true
           clean-exclude: >
             addons.json
             version_history.json
-
-      - name: 🗄️ List files
-        run: |
-          ls -al

@@ -38,5 +38,4 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           folder: dist
-          single-commit: true
           clean: false # Don't remove other files
