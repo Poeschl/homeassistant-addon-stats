@@ -28,6 +28,6 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           folder: dist
-          clean-exclude: >
+          clean-exclude: |
             addons.json
             version_history.json
