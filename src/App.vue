@@ -66,6 +66,9 @@ export default {
     addonsLoaded() {
       return this.addons !== undefined && Object.keys(this.addons).length > 0;
     },
+    addonHistory() {
+      return this.addon_version_history[this.currentAddon.name];
+    },
     reactiveAddons() {
       let compareFunction
       if (this.sorting === 'total') {
@@ -110,7 +113,7 @@ export default {
                    @filter-changed="(newFilter) => this.filter = newFilter"/>
       </div>
       <div class="col-8">
-        <AddonDetails :addon-details="this.currentAddon" :addon-history="this.addon_version_history[this.currentAddon.name]" />
+        <AddonDetails :addon-details="this.currentAddon" :addon-history="this.addonHistory" />
       </div>
     </div>
     <div class="text-center" v-if="!addonsLoaded">

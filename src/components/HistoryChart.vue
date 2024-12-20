@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-body">
       <h5 class="card-title">Installations over time</h5>
-      <LineChart :chart-data="this.getChartData()" :options="chartOptions"/>
+      <LineChart :chart-data="this.getChartData()" :options="chartOptions" />
     </div>
   </div>
 </template>
