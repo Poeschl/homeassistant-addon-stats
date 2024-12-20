@@ -39,7 +39,9 @@ export default {
       const sortedVersions = Object.keys(this.versions).map((key) => {
         return [key, this.versions[key]]
       }).sort((first, second) => {
-        return compareVersions(first[0], second[0])
+        const cleanedFirst = this.cleanVersion(first[0])
+        const cleanedSecond = this.cleanVersion(second[0])
+        return compareVersions(cleanedFirst, cleanedSecond)
       })
 
       const labels = []
@@ -74,6 +76,10 @@ export default {
       }
 
       return colorArray;
+    },
+    cleanVersion(version) {
+      // Use a regular expression to detect unwanted trailing letters in the patch part
+      return version.replace(/^([\d\\.]+(?:-.+)?)(?:\w.+)?$/, '$1');
     }
   }
 }
