@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title">Installations grouped by version</h5>
+      <h5 class="card-title">Latest installations grouped by version</h5>
       <DoughnutChart :chart-data="this.getChartData()" :options="chartOptions"/>
     </div>
   </div>
@@ -36,10 +36,16 @@ export default {
   },
   methods: {
     getChartData() {
+      if (this.versions === undefined || this.versions.length === 0) {
+        return {}
+      }
+
       const sortedVersions = Object.keys(this.versions).map((key) => {
         return [key, this.versions[key]]
       }).sort((first, second) => {
-        return compareVersions(first[0], second[0])
+        const cleanedFirst = this.cleanVersion(first[0])
+        const cleanedSecond = this.cleanVersion(second[0])
+        return compareVersions(cleanedFirst, cleanedSecond)
       })
 
       const labels = []
@@ -74,6 +80,10 @@ export default {
       }
 
       return colorArray;
+    },
+    cleanVersion(version) {
+      // Use a regular expression to detect unwanted trailing letters in the patch part
+      return version.replace(/^([\d\\.]+(?:-.+)?)(?:\w.+)?$/, '$1');
     }
   }
 }

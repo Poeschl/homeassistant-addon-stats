@@ -6,8 +6,11 @@
     <div class="row mb-3">
       <NumberDisplayWidget :values="numberDisplay"/>
     </div>
-    <div class="row">
+    <div class="row mb-3">
       <VersionsChart :versions="addonDetails.versions"/>
+    </div>
+    <div class="row">
+      <HistoryChart :versions="addonHistory"/>
     </div>
   </div>
 </template>
@@ -15,11 +18,12 @@
 <script>
 import NumberDisplayWidget from "@/components/NumberDisplayWidget.vue";
 import VersionsChart from "@/components/VersionsChart.vue";
+import HistoryChart from "@/components/HistoryChart.vue";
 
 export default {
   name: "AddonDetails",
-  components: {VersionsChart, NumberDisplayWidget},
-  props: ["addonDetails"],
+  components: {HistoryChart, VersionsChart, NumberDisplayWidget},
+  props: ["addonDetails","addonHistory"],
   computed: {
     numberDisplay() {
       return [

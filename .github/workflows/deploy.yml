@@ -27,7 +27,9 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           folder: dist
           single-commit: true
-          clean-exclude: 'addons.json'
+          clean-exclude: >
+            addons.json
+            version_history.json
 
       - name: 🗄️ List files
         run: |
