@@ -34,6 +34,9 @@ jobs:
         with:
           args: -O dist/version_history.json https://raw.githubusercontent.com/Poeschl/homeassistant-addon-stats/refs/heads/gh-pages/version_history.json
 
+      - name:  ✅️ Fix file permissions
+        run: sudo chown -R runner:docker dist && ls -al dist
+
       - name: ⚙ Update version history
         run: python scripts/update_addon_version_history.py dist/addons.json dist/version_history.json
 
