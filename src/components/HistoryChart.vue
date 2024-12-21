@@ -3,14 +3,14 @@
     <div class="card-body">
       <h5 class="card-title">Installations over time</h5>
       <div class="chart-container">
-        <Line :data="chartData" :options="chartOptions"/>
+        <LineChart :data="chartData" :options="chartOptions"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import {Line} from 'vue-chartjs';
+import {Line as LineChart} from 'vue-chartjs';
 import {CategoryScale, Chart as ChartJS, Legend, LinearScale, LineElement, PointElement, Title, Tooltip} from "chart.js";
 import {interpolateTurbo} from "d3-scale-chromatic";
 import {compareVersions} from "compare-versions";
@@ -27,7 +27,7 @@ export default {
   name: "HistoryChart",
   props: ["versions"],
   components: {
-    Line
+    LineChart
   },
   data() {
     return {
