@@ -29,6 +29,11 @@ jobs:
         with:
           args: -O dist/addons.json https://analytics.home-assistant.io/addons.json
 
+      - name: ⏬ Download existing version_history.json
+        uses: wei/wget@v1
+        with:
+          args: -O dist/version_history.json https://raw.githubusercontent.com/Poeschl/homeassistant-addon-stats/refs/heads/gh-pages/version_history.json
+
       - name: ⚙ Update version history
         run: python scripts/update_addon_version_history.py dist/addons.json dist/version_history.json
 
