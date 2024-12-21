@@ -32,9 +32,9 @@ export default {
   data() {
     return {
       chartOptions: {
-        animation: false,
         tension: 0.1,
-        showLine: true,
+        responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: {
             position: 'bottom'
