@@ -2,24 +2,32 @@
   <div class="card">
     <div class="card-body">
       <h5 class="card-title">Installations over time</h5>
-      <LineChart :chart-data="this.getChartData()" :options="chartOptions" />
+      <div class="chart-container">
+        <Line :data="chartData" :options="chartOptions"/>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import {LineChart} from 'vue-chart-3';
-import {Chart, registerables} from "chart.js";
+import {Line} from 'vue-chartjs';
+import {CategoryScale, Chart as ChartJS, Legend, LinearScale, LineElement, PointElement, Title, Tooltip} from "chart.js";
 import {interpolateTurbo} from "d3-scale-chromatic";
 import {compareVersions} from "compare-versions";
 
-Chart.register(...registerables);
+ChartJS.register(CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend);
 
 export default {
   name: "HistoryChart",
   props: ["versions"],
   components: {
-    LineChart
+    Line
   },
   data() {
     return {
@@ -29,7 +37,7 @@ export default {
         showLine: true,
         plugins: {
           legend: {
-            position: 'right'
+            position: 'bottom'
           }
         }
       }
@@ -45,19 +53,7 @@ export default {
         return compareVersions(cleanedFirst, cleanedSecond)
       })
     },
-    chartColors() {
-      // Create a dict of colors for versions
-      const colors = this.generateColors(this.sortedVersions.length);
-      const versions = this.sortedVersions.map(version => version[0])
-      const dict = {}
-      versions.forEach((version, index) => {
-        dict[version] = colors[index]
-      })
-      return dict
-    }
-  },
-  methods: {
-    getChartData() {
+    chartData() {
       if (this.versions === undefined || this.versions.length === 0) {
         return {
           labels: [],
@@ -94,8 +90,19 @@ export default {
         labels: Array.from(dates),
         datasets: dataSets
       }
+    },
+    chartColors() {
+      // Create a dict of colors for versions
+      const colors = this.generateColors(this.sortedVersions.length);
+      const versions = this.sortedVersions.map(version => version[0])
+      const dict = {}
+      versions.forEach((version, index) => {
+        dict[version] = colors[index]
+      })
+      return dict
     }
-    ,
+  },
+  methods: {
     generateColors(dataLength,) {
       const colorStart = 0.04
       const colorEnd = 1

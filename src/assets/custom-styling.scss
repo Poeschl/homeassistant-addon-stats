@@ -49,3 +49,7 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: $primary;
 }
+
+.chart-container {
+  max-height: 400px;
+}

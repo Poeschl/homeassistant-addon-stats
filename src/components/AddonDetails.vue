@@ -35,3 +35,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.row {
+  max-height: 500px;
+}
+</style>

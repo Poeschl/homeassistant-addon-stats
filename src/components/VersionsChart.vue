@@ -2,29 +2,32 @@
   <div class="card">
     <div class="card-body">
       <h5 class="card-title">Latest installations grouped by version</h5>
-      <DoughnutChart :chart-data="this.getChartData()" :options="chartOptions"/>
+      <div class="chart-container">
+        <Doughnut :data="chartData" :options="chartOptions"/>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import {DoughnutChart} from 'vue-chart-3';
-import {Chart, registerables} from "chart.js";
+import {Doughnut} from 'vue-chartjs';
+import {ArcElement, Chart as ChartJS, Legend, Tooltip} from 'chart.js'
 import {interpolateTurbo} from "d3-scale-chromatic";
 import {compareVersions} from "compare-versions";
 
-Chart.register(...registerables);
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 export default {
   name: "VersionsChart",
   props: ["versions"],
   components: {
-    DoughnutChart
+    Doughnut
   },
   data() {
     return {
       chartOptions: {
-        animation: false,
+        responsive: true,
+        maintainAspectRatio: false,
         borderColor: '#121213',
         plugins: {
           legend: {
@@ -34,8 +37,8 @@ export default {
       }
     }
   },
-  methods: {
-    getChartData() {
+  computed: {
+    chartData() {
       if (this.versions === undefined || this.versions.length === 0) {
         return {
           labels: [],
@@ -68,7 +71,9 @@ export default {
           }
         ]
       }
-    },
+    }
+  },
+  methods: {
     generateColors(dataLength,) {
       const colorStart = 0.04
       const colorEnd = 1
