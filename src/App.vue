@@ -13,6 +13,11 @@ export default {
       filter: ''
     }
   },
+  inject: {
+    plausible: {
+      default: undefined
+    }
+  },
   methods: {
     loadAddonData() {
       Promise.all([
@@ -53,6 +58,9 @@ export default {
     },
     addonClicked(addonKey) {
       this.currentAddon = this.addons[addonKey]
+      if(this.plausible !== undefined) {
+        this.plausible.trackEvent("addon clicked", { props: {addon: addonKey}});
+      }
     },
     checkForFilterParam() {
       let queryString = window.location.search;

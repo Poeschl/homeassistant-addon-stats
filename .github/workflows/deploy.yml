@@ -31,3 +31,4 @@ jobs:
           clean-exclude: |
             addons.json
             version_history.json
+            assets/env-*.js
