@@ -13,7 +13,7 @@ def load_json(file_path):
 def save_json(data, file_path):
     """Saves JSON data to a file."""
     with open(file_path, "w") as f:
-        json.dump(data, f, indent=4)
+        json.dump(data, f)
 
 def update_version_history(input_json, output_file):
     """Updates the version history with the input JSON."""
