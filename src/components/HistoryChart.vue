@@ -11,17 +11,20 @@
 
 <script>
 import {Line as LineChart} from 'vue-chartjs';
-import {CategoryScale, Chart as ChartJS, Legend, LinearScale, LineElement, PointElement, Title, Tooltip} from "chart.js";
+import {CategoryScale, Chart as ChartJS, Legend, LinearScale, LineElement, PointElement, Title, Tooltip, TimeScale} from "chart.js";
 import {interpolateTurbo} from "d3-scale-chromatic";
 import {compareVersions} from "compare-versions";
+import 'chartjs-adapter-date-fns';
 
-ChartJS.register(CategoryScale,
+ChartJS.register(
+  CategoryScale,
   LinearScale,
   PointElement,
   LineElement,
   Title,
   Tooltip,
-  Legend);
+  Legend,
+  TimeScale);
 
 export default {
   name: "HistoryChart",
@@ -38,6 +41,22 @@ export default {
         plugins: {
           legend: {
             position: 'bottom'
+          }
+        },
+        scales: {
+          x: {
+            type: 'time',
+            time: {
+              unit: 'day',
+              round: 'day',
+              tooltipFormat: 'yyyy-MM-dd'
+            }
+          },
+          y: {
+            title: {
+              display: true,
+              text: 'Installations'
+            }
           }
         }
       }
