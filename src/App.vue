@@ -67,6 +67,9 @@ export default {
       let urlParams = new URLSearchParams(queryString);
       if (urlParams.has("filter")) {
         this.filter = urlParams.get("filter")
+        if(this.plausible !== undefined) {
+          this.plausible.trackEvent("used filter", { props: {filter: this.filter}});
+        }
       }
     }
   },
