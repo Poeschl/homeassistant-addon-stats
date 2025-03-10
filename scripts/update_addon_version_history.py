@@ -19,7 +19,7 @@ def update_version_history(input_json, output_file):
     """Updates the version history with the input JSON."""
     # Current date
     current_date = datetime.now().date().isoformat()
-    cutoff_date = (datetime.now() - timedelta(days=60)).date().isoformat()
+    cutoff_date = (datetime.now() - timedelta(days=90)).date().isoformat()
 
     # Load existing history
     history = load_json(output_file)
