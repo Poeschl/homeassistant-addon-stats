@@ -14,11 +14,11 @@
     "chartjs-adapter-date-fns": "^3.0.0",
     "compare-versions": "^6.1.1",
     "d3-scale-chromatic": "^3.1.0",
-    "date-fns": "^4.1.0",
+    "date-fns": "^4.4.0",
     "plausible-tracker": "^0.3.9",
-    "sass": "^1.97.1",
-    "vue": "^3.5.26",
-    "vue-chartjs": "^5.3.3"
+    "sass": "^1.103.1",
+    "vue": "^3.5.42",
+    "vue-chartjs": "^5.3.4"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.1",
